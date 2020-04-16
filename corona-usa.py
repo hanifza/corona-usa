@@ -1,27 +1,27 @@
-import requests
+from time import sleep
 from bs4 import BeautifulSoup
 from datetime import datetime
+import requests
+import os
 
-#variables
 now = datetime.now()
-timer = 60000.0
+#iterations
 i = 1
 
 #total live number fetcher (web scraper)
 def update():
-  page = requests.get("https://www.worldometers.info/coronavirus/country/us/")
-
+  page = requests.get('https://www.worldometers.info/coronavirus/country/us/')
   soup = BeautifulSoup(page.content, 'html.parser')
+  cases = str(list(soup.find_all('span')[4]))
+  cases = cases.replace('[\'', '')
+  cases = cases.replace(',', '')
+  cases = cases.replace(' \']', '')
 
-  live_num = str(list(soup.find_all('span')[4]))
-  live_num = live_num.replace("['", "")
-  live_num = live_num.replace(",", "")
-  live_num = live_num.replace(" ']", "")
+  return int(cases)
 
-  return int(live_num)
-
-#printing
 def printing(total):
+  #Clears the screen
+  os.system('cls' if os.name == 'nt' else 'clear')
   print(f'''
     Date: {now.month}/{now.day}/{now.year}
     Total: {total}
@@ -32,8 +32,6 @@ printing(update())
 
 #repeating print
 while True:
-  timer = timer - 0.01
-  if timer <= 0:
-    i = i + 1
-    printing(update())
-    timer = 60000.0
+  printing(update())
+  i += 1
+  sleep(2)
