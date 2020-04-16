@@ -34,4 +34,4 @@ printing(update())
 while True:
   printing(update())
   i += 1
-  sleep(2)
+  sleep(5)
