@@ -1,2 +1,2 @@
 # corona-usa
-a live counter of corona in the usa
+    This is a webscraper that periodically scans for the number of COVID19 cases in the US.
